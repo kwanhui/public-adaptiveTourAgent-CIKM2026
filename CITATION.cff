@@ -1,0 +1,39 @@
+cff-version: 1.2.0
+message: "If you use this software, please cite the companion paper."
+title: "AdaptTour: Real-Time Adaptive Tour Recommendation with Agentic AI"
+abstract: >
+  Real-Time Adaptive Tour Recommendation with Agentic AI. An LLM-driven agent
+  that plans personalised tours and re-plans them on the fly as user context
+  changes (weather, queues, fatigue, group preferences, venue hours).
+authors:
+  - family-names: Lim
+    given-names: Kwan Hui
+    affiliation: "Singapore University of Social Sciences"
+  - family-names: Gunawan
+    given-names: Aldy
+    affiliation: "Singapore Management University"
+  - family-names: Lee
+    given-names: Carmen Kar Hang
+    affiliation: "Singapore University of Social Sciences"
+type: software
+license: MIT
+repository-code: "https://github.com/kwanhui/public-adaptiveTourAgent-CIKM2026"
+preferred-citation:
+  type: conference-paper
+  title: "AdaptTour: Real-Time Adaptive Tour Recommendation with Agentic AI"
+  authors:
+    - family-names: Lim
+      given-names: Kwan Hui
+    - family-names: Gunawan
+      given-names: Aldy
+    - family-names: Lee
+      given-names: Carmen Kar Hang
+  collection-title: "Proceedings of the 35th ACM International Conference on Information and Knowledge Management (CIKM '26), Demonstration Track"
+  conference:
+    name: "The 35th ACM International Conference on Information and Knowledge Management (CIKM '26)"
+    city: "Rome"
+    country: IT
+    date-start: "2026-11-07"
+    date-end: "2026-11-11"
+  notes: "Accepted 2026-08-07 for the CIKM 2026 Demonstration Track. To appear; DOI to be added once the proceedings are published."
+  year: 2026

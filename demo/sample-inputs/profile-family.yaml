@@ -1,0 +1,14 @@
+# Family with two kids visiting Singapore for one day.
+user_id: demo_family_01
+name: Tan Family
+family_size: 4
+require_kid_friendly: true
+notes: Two kids age 6 and 9. Prefer outdoor + interactive over heavy museums.
+
+category_weights:
+  park: 0.30
+  zoo: 0.25
+  theme_park: 0.20
+  museum: 0.10
+  food: 0.10
+  viewpoint: 0.05

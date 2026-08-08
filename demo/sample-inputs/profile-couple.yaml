@@ -1,0 +1,14 @@
+# Couple on a short city break.
+user_id: demo_couple_01
+name: Couple
+family_size: 2
+require_kid_friendly: false
+notes: Mix of food, neighbourhoods, and one viewpoint at sunset.
+
+category_weights:
+  food: 0.25
+  neighbourhood: 0.20
+  viewpoint: 0.20
+  arts: 0.15
+  park: 0.10
+  heritage: 0.10

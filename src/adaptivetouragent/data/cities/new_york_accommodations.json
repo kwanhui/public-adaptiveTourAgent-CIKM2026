@@ -1,0 +1,10 @@
+{
+  "city": "New York",
+  "accommodations": [
+    {"accommodation_id": "nyc_acc01", "name": "The Plaza Hotel", "lat": 40.7644, "lon": -73.9744, "price_per_night_usd": 850, "rating": 4.7, "kid_friendly": true, "near_mrt": true, "description": "Iconic luxury hotel on Central Park South, walking distance to 5th Avenue and 59th St station", "amenities": ["breakfast", "wifi", "gym", "spa"]},
+    {"accommodation_id": "nyc_acc02", "name": "citizenM New York Times Square", "lat": 40.7596, "lon": -73.9904, "price_per_night_usd": 280, "rating": 4.5, "kid_friendly": false, "near_mrt": true, "description": "Design hotel one block from Times Square, near 50th St station", "amenities": ["breakfast", "wifi", "gym"]},
+    {"accommodation_id": "nyc_acc03", "name": "Hampton Inn Manhattan SoHo", "lat": 40.7193, "lon": -74.0061, "price_per_night_usd": 240, "rating": 4.3, "kid_friendly": true, "near_mrt": true, "description": "Mid-range family-friendly hotel in SoHo near Canal St station", "amenities": ["breakfast", "wifi", "gym"]},
+    {"accommodation_id": "nyc_acc04", "name": "Pod 51 Hotel", "lat": 40.7556, "lon": -73.9706, "price_per_night_usd": 145, "rating": 3.9, "kid_friendly": false, "near_mrt": true, "description": "Budget pod hotel in Midtown East near Lexington Av/51 St station", "amenities": ["wifi"]},
+    {"accommodation_id": "nyc_acc05", "name": "HI New York City Hostel", "lat": 40.7993, "lon": -73.9692, "price_per_night_usd": 70, "rating": 3.8, "kid_friendly": false, "near_mrt": true, "description": "Budget hostel on Upper West Side near 103rd St station", "amenities": ["wifi", "breakfast"]}
+  ]
+}

@@ -1,0 +1,10 @@
+{
+  "city": "London",
+  "accommodations": [
+    {"accommodation_id": "lon_acc01", "name": "The Savoy", "lat": 51.5104, "lon": -0.1209, "price_per_night_usd": 720, "rating": 4.8, "kid_friendly": true, "near_mrt": true, "description": "Heritage luxury hotel on the Strand, walking distance to West End and Embankment Tube", "amenities": ["breakfast", "wifi", "gym", "spa", "pool"]},
+    {"accommodation_id": "lon_acc02", "name": "The Z Hotel Piccadilly", "lat": 51.5106, "lon": -0.1340, "price_per_night_usd": 195, "rating": 4.3, "kid_friendly": false, "near_mrt": true, "description": "Compact rooms in Piccadilly Circus, next to the Tube", "amenities": ["breakfast", "wifi"]},
+    {"accommodation_id": "lon_acc03", "name": "Premier Inn London County Hall", "lat": 51.5009, "lon": -0.1187, "price_per_night_usd": 165, "rating": 4.4, "kid_friendly": true, "near_mrt": true, "description": "Mid-range family-friendly hotel beside the London Eye and Waterloo station", "amenities": ["breakfast", "wifi"]},
+    {"accommodation_id": "lon_acc04", "name": "ibis budget London Whitechapel", "lat": 51.5191, "lon": -0.0610, "price_per_night_usd": 95, "rating": 3.7, "kid_friendly": true, "near_mrt": true, "description": "Budget hotel near Whitechapel Elizabeth line station", "amenities": ["wifi"]},
+    {"accommodation_id": "lon_acc05", "name": "Generator London", "lat": 51.5251, "lon": -0.1247, "price_per_night_usd": 55, "rating": 4.0, "kid_friendly": false, "near_mrt": true, "description": "Budget hostel in Russell Square near British Museum and Tube", "amenities": ["wifi", "breakfast"]}
+  ]
+}

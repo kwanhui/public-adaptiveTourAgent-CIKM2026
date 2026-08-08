@@ -1,0 +1,10 @@
+{
+  "city": "Paris",
+  "accommodations": [
+    {"accommodation_id": "par_acc01", "name": "Le Bristol Paris", "lat": 48.8716, "lon": 2.3144, "price_per_night_usd": 920, "rating": 4.8, "kid_friendly": true, "near_mrt": true, "description": "Palace hotel in 8th arrondissement, walking distance to Champs-Élysées and Miromesnil métro", "amenities": ["pool", "breakfast", "wifi", "gym", "spa"]},
+    {"accommodation_id": "par_acc02", "name": "Hôtel des Grands Boulevards", "lat": 48.8714, "lon": 2.3416, "price_per_night_usd": 260, "rating": 4.5, "kid_friendly": false, "near_mrt": true, "description": "Boutique hotel near Grands Boulevards station and Opera district", "amenities": ["breakfast", "wifi"]},
+    {"accommodation_id": "par_acc03", "name": "Citadines Saint-Germain-des-Prés", "lat": 48.8525, "lon": 2.3422, "price_per_night_usd": 200, "rating": 4.3, "kid_friendly": true, "near_mrt": true, "description": "Mid-range apartment hotel near Saint-Michel station and Notre-Dame", "amenities": ["wifi", "gym"]},
+    {"accommodation_id": "par_acc04", "name": "ibis budget Paris Porte de Vanves", "lat": 48.8284, "lon": 2.3019, "price_per_night_usd": 90, "rating": 3.8, "kid_friendly": true, "near_mrt": true, "description": "Budget hotel near Porte de Vanves métro on Line 13", "amenities": ["wifi"]},
+    {"accommodation_id": "par_acc05", "name": "Generator Paris", "lat": 48.8842, "lon": 2.3704, "price_per_night_usd": 60, "rating": 4.0, "kid_friendly": false, "near_mrt": true, "description": "Budget hostel near Colonel Fabien métro on Line 2", "amenities": ["wifi", "breakfast"]}
+  ]
+}

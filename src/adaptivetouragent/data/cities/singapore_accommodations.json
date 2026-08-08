@@ -1,0 +1,15 @@
+{
+  "city": "Singapore",
+  "accommodations": [
+    {"accommodation_id": "acc01", "name": "Marina Bay Sands Hotel", "lat": 1.2834, "lon": 103.8607, "price_per_night_usd": 480, "rating": 4.7, "kid_friendly": true, "near_mrt": true, "description": "Iconic luxury hotel with infinity pool, near Gardens by the Bay", "amenities": ["pool", "breakfast", "wifi", "gym", "spa"]},
+    {"accommodation_id": "acc02", "name": "Raffles Hotel Singapore", "lat": 1.2949, "lon": 103.8543, "price_per_night_usd": 720, "rating": 4.8, "kid_friendly": false, "near_mrt": true, "description": "Heritage colonial luxury hotel in city center", "amenities": ["breakfast", "wifi", "spa", "pool"]},
+    {"accommodation_id": "acc03", "name": "Hotel Boss Singapore", "lat": 1.3027, "lon": 103.8625, "price_per_night_usd": 95, "rating": 4.0, "kid_friendly": true, "near_mrt": true, "description": "Mid-range hotel near Lavender MRT, family rooms available", "amenities": ["wifi", "pool", "breakfast"]},
+    {"accommodation_id": "acc04", "name": "ibis Budget Singapore Crystal", "lat": 1.3072, "lon": 103.8856, "price_per_night_usd": 65, "rating": 3.7, "kid_friendly": true, "near_mrt": false, "description": "Budget hotel near Aljunied, free shuttle to MRT", "amenities": ["wifi"]},
+    {"accommodation_id": "acc05", "name": "Shangri-La Singapore", "lat": 1.3098, "lon": 103.8259, "price_per_night_usd": 380, "rating": 4.7, "kid_friendly": true, "near_mrt": false, "description": "Upscale resort hotel near Botanic Gardens, large grounds", "amenities": ["pool", "breakfast", "wifi", "gym", "spa"]},
+    {"accommodation_id": "acc06", "name": "Lloyd's Inn", "lat": 1.3009, "lon": 103.8400, "price_per_night_usd": 180, "rating": 4.5, "kid_friendly": false, "near_mrt": true, "description": "Boutique adults-only hotel in Orchard Road area", "amenities": ["wifi", "breakfast"]},
+    {"accommodation_id": "acc07", "name": "Park Hotel Clarke Quay", "lat": 1.2899, "lon": 103.8447, "price_per_night_usd": 220, "rating": 4.3, "kid_friendly": true, "near_mrt": true, "description": "Riverside hotel near Chinatown and the river", "amenities": ["pool", "breakfast", "wifi", "gym"]},
+    {"accommodation_id": "acc08", "name": "JEN Tanglin", "lat": 1.3056, "lon": 103.8244, "price_per_night_usd": 165, "rating": 4.4, "kid_friendly": true, "near_mrt": false, "description": "Family-friendly hotel near Botanic Gardens, free MRT shuttle", "amenities": ["pool", "breakfast", "wifi", "gym"]},
+    {"accommodation_id": "acc09", "name": "Capsule Hostel Bugis", "lat": 1.3000, "lon": 103.8556, "price_per_night_usd": 35, "rating": 3.9, "kid_friendly": false, "near_mrt": true, "description": "Budget capsule hostel near Bugis MRT, solo travellers", "amenities": ["wifi"]},
+    {"accommodation_id": "acc10", "name": "Mandarin Oriental Singapore", "lat": 1.2911, "lon": 103.8590, "price_per_night_usd": 420, "rating": 4.6, "kid_friendly": true, "near_mrt": true, "description": "Luxury riverfront hotel near Marina Bay, harbour views", "amenities": ["pool", "breakfast", "wifi", "gym", "spa"]}
+  ]
+}

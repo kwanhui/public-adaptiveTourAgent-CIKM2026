@@ -1,0 +1,875 @@
+/* AdaptTour UI: modern tourism web-app styling.
+   Design notes: warm + airy in light mode, calm in dark; cards are the
+   primary primitive; subtle shadows; rounded corners; Inter type. */
+
+:root {
+  --bg: #f6f8fb;
+  --surface: #ffffff;
+  --surface-elevated: #ffffff;
+  --text: #0f172a;
+  --text-muted: #64748b;
+  --border: #e2e8f0;
+  --primary: #2c5cdb;
+  --primary-hover: #1f47ad;
+  --accent: #b8821a;
+  --accent-hover: #8e6313;
+  --danger: #c63a3a;
+  --shadow-sm: 0 1px 2px rgba(15, 23, 42, 0.04), 0 1px 3px rgba(15, 23, 42, 0.06);
+  --shadow-md: 0 4px 6px -1px rgba(15, 23, 42, 0.08), 0 2px 4px -2px rgba(15, 23, 42, 0.06);
+  --shadow-lg: 0 10px 15px -3px rgba(15, 23, 42, 0.1), 0 4px 6px -4px rgba(15, 23, 42, 0.05);
+  --radius: 12px;
+  --radius-sm: 8px;
+  --hero-grad: linear-gradient(120deg, #2c5cdb 0%, #5b8def 100%);
+  --tag-plan: #2c5cdb;
+  --tag-replan: #b8821a;
+  --tag-trigger: #c63a3a;
+  --tag-info: #64748b;
+}
+
+[data-theme="dark"] {
+  --bg: #0b1020;
+  --surface: #131a2f;
+  --surface-elevated: #1a2240;
+  --text: #e8ecf5;
+  --text-muted: #94a1bf;
+  --border: #283054;
+  --primary: #6c8eff;
+  --primary-hover: #91abff;
+  --accent: #f0b340;
+  --accent-hover: #ffcb6e;
+  --danger: #ff7a7a;
+  --hero-grad: linear-gradient(120deg, #1f2a55 0%, #3a4a86 100%);
+  --shadow-sm: 0 1px 2px rgba(0, 0, 0, 0.3);
+  --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.4);
+  --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.5);
+}
+
+* { box-sizing: border-box; }
+
+html, body {
+  margin: 0;
+  padding: 0;
+  height: 100%;
+  font-family: 'Inter', system-ui, -apple-system, sans-serif;
+  font-size: 14px;
+  color: var(--text);
+  background: var(--bg);
+  -webkit-font-smoothing: antialiased;
+}
+
+h1, h2, h3 {
+  font-weight: 600;
+  margin: 0;
+  color: var(--text);
+}
+
+/* ----- Hero header ----- */
+.hero {
+  background: var(--hero-grad);
+  color: white;
+  padding: 14px 20px;
+  box-shadow: var(--shadow-md);
+  position: sticky;
+  top: 0;
+  z-index: 100;
+}
+.hero-inner {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  max-width: 1600px;
+  margin: 0 auto;
+}
+.brand { display: flex; gap: 12px; align-items: center; }
+.brand-mark {
+  width: 36px;
+  height: 36px;
+  border-radius: 8px;
+  background: rgba(255, 255, 255, 0.18);
+  display: grid;
+  place-items: center;
+  font-weight: 700;
+  font-size: 16px;
+  border: 1px solid rgba(255, 255, 255, 0.3);
+}
+.brand-text h1 {
+  font-size: 17px;
+  color: white;
+  margin: 0;
+  letter-spacing: -0.01em;
+}
+.tagline {
+  margin: 1px 0 0 0;
+  font-size: 12px;
+  opacity: 0.85;
+  font-weight: 400;
+  max-width: 600px;
+}
+
+/* ----- Layout ----- */
+.layout {
+  display: grid;
+  grid-template-columns: 360px 1fr 0;
+  height: calc(100vh - 64px);
+}
+.layout.with-detail {
+  grid-template-columns: 360px 1fr 360px;
+}
+
+.sidebar {
+  background: var(--bg);
+  padding: 16px;
+  overflow-y: auto;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  border-right: 1px solid var(--border);
+}
+
+.map-pane {
+  position: relative;
+  background: var(--surface);
+}
+#map { height: 100%; width: 100%; background: var(--bg); }
+
+.detail-rail {
+  background: var(--bg);
+  padding: 16px;
+  overflow-y: auto;
+  border-left: 1px solid var(--border);
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+/* ----- Cards (primary primitive) ----- */
+.card {
+  background: var(--surface);
+  border-radius: var(--radius);
+  padding: 16px;
+  box-shadow: var(--shadow-sm);
+  border: 1px solid var(--border);
+}
+.card h2 {
+  font-size: 13px;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: var(--text-muted);
+  margin-bottom: 12px;
+}
+
+/* ----- Form fields ----- */
+.form-grid {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+  gap: 10px;
+  margin-bottom: 12px;
+}
+.field {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  min-width: 0;  /* prevent grid item from inflating past its column */
+}
+.field.full { grid-column: span 2; }
+.field span {
+  font-size: 11px;
+  font-weight: 500;
+  color: var(--text-muted);
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+}
+.field input, .field select, .chat-form textarea {
+  padding: 8px 10px;
+  border: 1px solid var(--border);
+  border-radius: var(--radius-sm);
+  background: var(--surface-elevated);
+  color: var(--text);
+  font-family: inherit;
+  font-size: 14px;
+  width: 100%;
+  max-width: 100%;
+  min-width: 0;
+  box-sizing: border-box;
+  transition: border-color 0.15s, box-shadow 0.15s;
+}
+.field input:disabled {
+  background: var(--bg);
+  color: var(--text-muted);
+  cursor: not-allowed;
+}
+.field input::-webkit-calendar-picker-indicator {
+  cursor: pointer;
+  filter: var(--cal-icon-filter, none);
+}
+[data-theme="dark"] { --cal-icon-filter: invert(0.85); }
+.field input:focus, .field select:focus, .chat-form textarea:focus {
+  outline: none;
+  border-color: var(--primary);
+  box-shadow: 0 0 0 3px rgba(44, 92, 219, 0.15);
+}
+.checkbox-field {
+  grid-column: span 2;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 6px 0;
+  font-size: 13px;
+}
+.checkbox-field input { width: 16px; height: 16px; }
+.checkbox-field span {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  font-size: 13px;
+  text-transform: none;
+  letter-spacing: normal;
+  color: var(--text);
+  font-weight: 500;
+}
+
+/* ----- Buttons ----- */
+button {
+  font-family: inherit;
+  font-size: 14px;
+  font-weight: 500;
+  cursor: pointer;
+  border-radius: var(--radius-sm);
+  border: none;
+  padding: 9px 14px;
+  transition: background-color 0.15s, transform 0.05s;
+}
+button:active { transform: translateY(1px); }
+button.primary {
+  background: var(--primary);
+  color: white;
+  width: 100%;
+}
+button.primary:hover { background: var(--primary-hover); }
+button.ghost {
+  background: rgba(255, 255, 255, 0.12);
+  color: white;
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  padding: 8px 12px;
+}
+button.ghost:hover { background: rgba(255, 255, 255, 0.2); }
+button.ghost-small {
+  background: transparent;
+  color: var(--text-muted);
+  font-size: 18px;
+  padding: 4px 8px;
+}
+button.ghost-small:hover { color: var(--text); }
+
+[data-theme="light"] .theme-icon-dark { display: none; }
+[data-theme="dark"]  .theme-icon-light { display: none; }
+
+/* ----- Triggers ----- */
+.trigger-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-bottom: 12px;
+}
+button.trigger {
+  background: var(--surface-elevated);
+  color: var(--text);
+  border: 1px solid var(--border);
+  padding: 8px 12px;
+  font-size: 13px;
+}
+button.trigger:hover {
+  background: var(--accent);
+  color: white;
+  border-color: var(--accent);
+}
+
+.chat-form {
+  display: flex;
+  gap: 8px;
+  flex-direction: column;
+}
+.chat-form textarea {
+  resize: vertical;
+  min-height: 50px;
+}
+.chat-send { width: auto; padding: 8px 16px; align-self: flex-end; }
+
+/* ----- Session metrics ----- */
+.metrics {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 8px;
+}
+.metric {
+  background: var(--bg);
+  padding: 10px 12px;
+  border-radius: var(--radius-sm);
+  border: 1px solid var(--border);
+}
+.metric-wide { grid-column: span 2; }
+.metric-label {
+  display: block;
+  font-size: 11px;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  color: var(--text-muted);
+  margin-bottom: 2px;
+}
+.metric-value {
+  font-size: 18px;
+  font-weight: 600;
+  color: var(--text);
+}
+
+/* ----- Chat / activity log ----- */
+#chat-log {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  max-height: 320px;
+  overflow-y: auto;
+}
+.entry {
+  padding: 8px 10px;
+  border-radius: var(--radius-sm);
+  background: var(--surface-elevated);
+  border: 1px solid var(--border);
+  font-size: 13px;
+  line-height: 1.45;
+  animation: fadein 0.25s ease;
+}
+@keyframes fadein {
+  from { opacity: 0; transform: translateY(4px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+.entry .tag {
+  display: inline-block;
+  padding: 2px 8px;
+  border-radius: 4px;
+  font-size: 11px;
+  font-weight: 600;
+  margin-right: 6px;
+  color: white;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+}
+.tag.plan { background: var(--tag-plan); }
+.tag.replan { background: var(--tag-replan); }
+.tag.trigger { background: var(--tag-trigger); }
+.tag.info { background: var(--tag-info); }
+
+/* ----- Map overlay (initial empty state) ----- */
+.map-overlay {
+  position: absolute;
+  inset: 0;
+  display: grid;
+  place-items: center;
+  pointer-events: none;
+  background: linear-gradient(0deg, rgba(0,0,0,0) 60%, rgba(255,255,255,0.4) 100%);
+}
+.map-overlay.hidden { display: none; }
+.overlay-card {
+  background: var(--surface);
+  padding: 24px 28px;
+  border-radius: var(--radius);
+  box-shadow: var(--shadow-lg);
+  max-width: 420px;
+  text-align: center;
+  pointer-events: auto;
+}
+.overlay-card h2 {
+  font-size: 16px;
+  margin-bottom: 8px;
+}
+.overlay-card p {
+  margin: 0;
+  color: var(--text-muted);
+  font-size: 13px;
+  line-height: 1.5;
+}
+
+/* ----- Detail rail (per-visit cards) ----- */
+.detail-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 4px;
+}
+.detail-header h2 {
+  font-size: 13px;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: var(--text-muted);
+}
+#visit-list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+.visit-card {
+  background: var(--surface);
+  padding: 12px;
+  border-radius: var(--radius-sm);
+  border: 1px solid var(--border);
+  box-shadow: var(--shadow-sm);
+  font-size: 13px;
+  cursor: pointer;
+  transition: transform 0.1s, border-color 0.15s;
+}
+.visit-card:hover {
+  border-color: var(--primary);
+  transform: translateX(-2px);
+}
+.visit-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 8px;
+}
+.visit-time {
+  font-weight: 600;
+  color: var(--primary);
+  font-variant-numeric: tabular-nums;
+  font-size: 12px;
+}
+.visit-name {
+  font-weight: 600;
+  margin-top: 2px;
+  font-size: 14px;
+  color: var(--text);
+}
+.visit-meta {
+  display: flex;
+  gap: 8px;
+  margin-top: 6px;
+  font-size: 11px;
+  color: var(--text-muted);
+  flex-wrap: wrap;
+}
+.visit-meta span {
+  background: var(--bg);
+  padding: 2px 7px;
+  border-radius: 4px;
+}
+.visit-meta .mode-badge {
+  background: var(--primary);
+  color: white;
+  font-weight: 600;
+  letter-spacing: 0.02em;
+}
+.visit-detail {
+  display: none;
+  margin-top: 8px;
+  padding-top: 8px;
+  border-top: 1px dashed var(--border);
+  font-size: 12px;
+  color: var(--text-muted);
+  line-height: 1.5;
+}
+.visit-card.expanded .visit-detail { display: block; }
+.visit-detail strong { color: var(--text); }
+.visit-detail .visit-why { margin: 0 0 6px 0; }
+.visit-detail .visit-why strong { color: var(--text); }
+
+/* Expand affordance in the top-right of a card. A clear round button (sized to
+   match the visit-check) so it reads as "tap to see why this stop". Rotates
+   when open. */
+.expand-chevron {
+  margin-left: auto;
+  width: 26px;
+  height: 26px;
+  border-radius: 50%;
+  border: 1.5px solid var(--border);
+  background: var(--surface);
+  color: var(--text-muted);
+  font-size: 15px;
+  line-height: 1;
+  display: inline-grid;
+  place-items: center;
+  flex-shrink: 0;
+  transition: transform 0.15s ease, color 0.12s, border-color 0.12s, background 0.12s;
+}
+.visit-card:hover .expand-chevron {
+  border-color: var(--primary);
+  color: var(--primary);
+}
+.visit-card.expanded .expand-chevron {
+  transform: rotate(180deg);
+  border-color: var(--primary);
+  color: var(--primary);
+}
+
+/* "Mark as visited" round button in the top-right of each card. Clicking it
+   marks this POI + every earlier one as visited (high-water-mark). Subsequent
+   triggers (rain, fatigue, chat) only replan the still-unvisited tail. */
+.visit-check {
+  width: 22px;
+  height: 22px;
+  border-radius: 50%;
+  border: 1.5px solid var(--border);
+  background: var(--surface);
+  color: var(--text-muted);
+  font-size: 12px;
+  font-weight: 700;
+  line-height: 1;
+  padding: 0;
+  display: inline-grid;
+  place-items: center;
+  cursor: pointer;
+  transition: background 0.12s, border-color 0.12s, color 0.12s;
+  flex-shrink: 0;
+}
+.visit-check:hover { border-color: var(--primary); color: var(--primary); }
+.visit-card.visited .visit-check {
+  background: var(--primary);
+  border-color: var(--primary);
+  color: white;
+}
+.visit-card.visited {
+  opacity: 0.62;
+  background: var(--bg);
+}
+.visit-card.visited .visit-name { text-decoration: line-through; text-decoration-thickness: 1px; }
+.visit-card.next-up {
+  border-color: var(--primary);
+  box-shadow: 0 0 0 2px rgba(44, 92, 219, 0.15), var(--shadow-sm);
+}
+.transport-leg.past { opacity: 0.45; }
+/* Tiny banner above the list when at least one POI is marked visited. */
+.visited-banner {
+  font-size: 12px;
+  color: var(--text-muted);
+  padding: 6px 10px;
+  margin-bottom: 6px;
+  background: var(--bg);
+  border-radius: var(--radius-sm);
+  border: 1px dashed var(--border);
+}
+.visited-banner button {
+  background: none;
+  border: none;
+  color: var(--primary);
+  font-size: 12px;
+  padding: 0 0 0 6px;
+  cursor: pointer;
+  text-decoration: underline;
+  font-weight: 500;
+}
+
+/* ----- Transport leg (between POI cards) ----- */
+.transport-leg {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 6px 12px;
+  margin: 4px 8px 4px 24px;
+  background: transparent;
+  border-left: 3px solid var(--border);
+  font-size: 12px;
+  color: var(--text-muted);
+  list-style: none;
+}
+.transport-leg .leg-icon {
+  font-size: 18px;
+  line-height: 1;
+}
+.transport-leg .leg-body {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  min-width: 0;
+}
+.transport-leg .leg-mode {
+  font-weight: 600;
+  color: var(--text);
+}
+.transport-leg .leg-times {
+  font-size: 11px;
+  color: var(--text-muted);
+}
+/* Per-mode accent on the left border so transport mode is glanceable. */
+.transport-leg.mode-walk      { border-left-color: #16a34a; }
+.transport-leg.mode-cycle     { border-left-color: #22c55e; }
+.transport-leg.mode-transit   { border-left-color: #2c5cdb; border-left-style: dashed; }
+.transport-leg.mode-rideshare { border-left-color: #f59e0b; }
+.transport-leg.mode-drive     { border-left-color: #ef4444; }
+
+/* ----- Info icons + popover ----- */
+.info-icon {
+  display: inline-grid;
+  place-items: center;
+  width: 16px;
+  height: 16px;
+  padding: 0;
+  border-radius: 50%;
+  background: var(--border);
+  color: var(--text-muted);
+  font-size: 11px;
+  font-weight: 700;
+  cursor: help;
+  border: none;
+  transition: background-color 0.15s, color 0.15s;
+}
+.info-icon:hover, .info-icon:focus {
+  background: var(--primary);
+  color: white;
+  outline: none;
+}
+.info-popover {
+  position: fixed;
+  z-index: 1000;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-sm);
+  padding: 10px 12px;
+  font-size: 12px;
+  line-height: 1.5;
+  color: var(--text);
+  max-width: 280px;
+  box-shadow: var(--shadow-lg);
+  pointer-events: none;
+  text-transform: none;
+  letter-spacing: normal;
+  font-weight: 400;
+  animation: fadein 0.15s ease;
+}
+
+/* ----- Day tabs (multi-day) ----- */
+.day-tabs {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  padding: 8px 0;
+  border-bottom: 1px solid var(--border);
+  margin-bottom: 4px;
+}
+.day-tab {
+  padding: 6px 12px;
+  border-radius: 999px;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  color: var(--text-muted);
+  font-size: 12px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: background-color 0.15s, color 0.15s;
+}
+.day-tab:hover {
+  background: var(--bg);
+  color: var(--text);
+}
+.day-tab.active {
+  background: var(--primary);
+  color: white;
+  border-color: var(--primary);
+}
+
+/* ----- Map pin ----- */
+.map-pin-wrap { background: transparent !important; border: none !important; }
+.map-pin {
+  width: 28px;
+  height: 28px;
+  border-radius: 50%;
+  background: var(--primary);
+  color: white;
+  display: grid;
+  place-items: center;
+  font-weight: 700;
+  font-size: 12px;
+  border: 2px solid white;
+  box-shadow: var(--shadow-md);
+}
+
+/* ----- Leaflet zoom control ----- */
+/* Leaflet's defaults render +/- in a font that looks off next to the rest of
+   the UI (the Inter override on body bleeds through), and the corner radius
+   doesn't match our card style. Pin the size, font and radii explicitly so
+   the buttons stay legible in both themes. */
+.leaflet-bar { box-shadow: var(--shadow-md) !important; border: none !important; }
+.leaflet-bar a,
+.leaflet-bar a:hover {
+  width: 32px !important;
+  height: 32px !important;
+  line-height: 32px !important;
+  font-family: system-ui, -apple-system, 'Segoe UI', Helvetica, Arial, sans-serif !important;
+  font-size: 20px !important;
+  font-weight: 600 !important;
+  color: var(--text) !important;
+  background: var(--surface-elevated) !important;
+  border-bottom: 1px solid var(--border) !important;
+  text-align: center;
+  text-decoration: none;
+}
+.leaflet-bar a:first-child { border-top-left-radius: var(--radius-sm) !important; border-top-right-radius: var(--radius-sm) !important; }
+.leaflet-bar a:last-child { border-bottom-left-radius: var(--radius-sm) !important; border-bottom-right-radius: var(--radius-sm) !important; border-bottom: none !important; }
+.leaflet-bar a:hover { background: var(--bg) !important; }
+.leaflet-bar a.leaflet-disabled { color: var(--text-muted) !important; opacity: 0.5; }
+
+/* ----- Mobile responsive ----- */
+@media (max-width: 900px) {
+  .layout {
+    grid-template-columns: 1fr;
+    grid-template-rows: auto 60vh;
+    height: auto;
+  }
+  .layout.with-detail {
+    grid-template-columns: 1fr;
+    grid-template-rows: auto 50vh auto;
+  }
+  .sidebar {
+    border-right: none;
+    border-bottom: 1px solid var(--border);
+  }
+  .detail-rail {
+    border-left: none;
+    border-top: 1px solid var(--border);
+  }
+}
+
+/* ----- Group preferences + live veto ----- */
+.group-panel {
+  margin: 0.5rem 0;
+  padding: 10px 12px;
+  border: 1px dashed var(--border);
+  border-radius: var(--radius-sm);
+  background: var(--surface);
+}
+.group-head {
+  display: block;
+  font-weight: 600;
+  font-size: 0.82rem;
+  margin-bottom: 0.5rem;
+}
+/* Each member is a name field on its own line, then a veto/boost/remove row. */
+.member-row {
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+  gap: 6px;
+  margin-bottom: 8px;
+  padding-bottom: 8px;
+  border-bottom: 1px solid var(--border);
+}
+.member-row:last-of-type {
+  margin-bottom: 0;
+  padding-bottom: 0;
+  border-bottom: none;
+}
+.member-prefs {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  flex-wrap: wrap;
+}
+.member-prefs label {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  font-size: 11px;
+  font-weight: 500;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  color: var(--text-muted);
+}
+.member-prefs .member-remove { margin-left: auto; }
+
+.veto-row {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-top: 10px;
+}
+
+/* Group + veto inputs share the same box style as the Plan-a-tour fields. */
+.member-row .member-name,
+.member-prefs select,
+.veto-row select {
+  padding: 8px 10px;
+  border: 1px solid var(--border);
+  border-radius: var(--radius-sm);
+  background: var(--surface-elevated);
+  color: var(--text);
+  font-family: inherit;
+  font-size: 13px;
+  box-sizing: border-box;
+  transition: border-color 0.15s, box-shadow 0.15s;
+}
+.member-row .member-name { width: 100%; }
+.member-prefs select { flex: 1 1 6rem; min-width: 0; }
+.veto-row select { flex: 1 1 auto; min-width: 0; }
+.member-row .member-name:focus,
+.member-prefs select:focus,
+.veto-row select:focus {
+  outline: none;
+  border-color: var(--primary);
+  box-shadow: 0 0 0 3px rgba(44, 92, 219, 0.15);
+}
+
+/* ----- Sandboxed booking ----- */
+/* "Book" reads as a small pill button; "✕" as a quiet icon button. Both keep a
+   clear hover state so they're obviously interactive, not static labels. */
+.book-btn {
+  margin-left: auto;
+  font-size: 12px;
+  font-weight: 600;
+  padding: 4px 12px;
+  border-radius: 999px;
+  border: 1px solid var(--primary);
+  background: transparent;
+  color: var(--primary);
+  transition: background-color 0.15s, color 0.15s;
+}
+.book-btn:hover { background: var(--primary); color: #fff; }
+.book-btn:disabled { opacity: 0.55; cursor: default; }
+.book-btn:disabled:hover { background: transparent; color: var(--primary); }
+.remove-stop-btn {
+  font-size: 13px;
+  line-height: 1;
+  padding: 4px 9px;
+  border-radius: 999px;
+  border: 1px solid var(--border);
+  background: transparent;
+  color: var(--text-muted);
+  transition: background-color 0.15s, color 0.15s, border-color 0.15s;
+}
+.remove-stop-btn:hover {
+  border-color: var(--danger);
+  color: var(--danger);
+  background: rgba(198, 58, 58, 0.08);
+}
+.visit-booking {
+  font-size: 12px;
+  margin-top: 6px;
+}
+.booking-ok {
+  display: inline-block;
+  color: var(--primary);
+  font-weight: 600;
+  background: rgba(44, 92, 219, 0.10);
+  padding: 3px 8px;
+  border-radius: 6px;
+}
+.booking-fail {
+  color: var(--danger);
+  font-weight: 600;
+}
+.control-row {
+  margin-top: 10px;
+}
+.signal-note {
+  margin: 0.35rem 0 0;
+  font-size: 0.68rem;
+  color: var(--accent);
+  opacity: 0.8;
+}

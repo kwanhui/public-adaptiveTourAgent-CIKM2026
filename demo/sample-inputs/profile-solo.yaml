@@ -1,0 +1,14 @@
+# Solo culture-focused traveller.
+user_id: demo_solo_01
+name: Solo Traveller
+family_size: 1
+require_kid_friendly: false
+notes: Interested in museums, heritage, food. Walks comfortably for hours.
+
+category_weights:
+  museum: 0.30
+  heritage: 0.25
+  arts: 0.15
+  food: 0.15
+  neighbourhood: 0.10
+  viewpoint: 0.05

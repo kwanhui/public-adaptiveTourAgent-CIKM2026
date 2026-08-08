@@ -1,0 +1,10 @@
+{
+  "city": "Melbourne",
+  "accommodations": [
+    {"accommodation_id": "mel_acc01", "name": "Crown Towers Melbourne", "lat": -37.8235, "lon": 144.9583, "price_per_night_usd": 380, "rating": 4.6, "kid_friendly": true, "near_mrt": true, "description": "Luxury riverside tower in Southbank, walking distance to Eureka and NGV", "amenities": ["pool", "breakfast", "wifi", "gym", "spa"]},
+    {"accommodation_id": "mel_acc02", "name": "QT Melbourne", "lat": -37.8131, "lon": 144.9663, "price_per_night_usd": 240, "rating": 4.5, "kid_friendly": false, "near_mrt": true, "description": "Design-led boutique hotel on Russell Street, near Chinatown and trams", "amenities": ["breakfast", "wifi", "gym"]},
+    {"accommodation_id": "mel_acc03", "name": "Ovolo South Yarra", "lat": -37.8392, "lon": 144.9913, "price_per_night_usd": 175, "rating": 4.4, "kid_friendly": true, "near_mrt": true, "description": "Mid-range boutique near Botanic Gardens, breakfast included", "amenities": ["breakfast", "wifi", "gym"]},
+    {"accommodation_id": "mel_acc04", "name": "ibis Budget Melbourne CBD", "lat": -37.8104, "lon": 144.9605, "price_per_night_usd": 75, "rating": 3.8, "kid_friendly": true, "near_mrt": true, "description": "Budget hotel near Queen Vic Market and Flagstaff station", "amenities": ["wifi"]},
+    {"accommodation_id": "mel_acc05", "name": "Space Hotel", "lat": -37.8085, "lon": 144.9622, "price_per_night_usd": 40, "rating": 3.9, "kid_friendly": false, "near_mrt": true, "description": "Budget hostel with rooftop, central CBD near Melbourne Central station", "amenities": ["wifi"]}
+  ]
+}

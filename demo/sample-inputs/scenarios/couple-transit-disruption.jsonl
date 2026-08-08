@@ -1,0 +1,5 @@
+{"at": "2026-05-02T11:00:00", "kind": "weather", "temp_c": 30.0, "precip_mm_per_h": 0.0, "condition": "clear", "source": "recorded"}
+{"at": "2026-05-02T15:00:00", "kind": "weather", "temp_c": 29.5, "precip_mm_per_h": 0.0, "condition": "clear", "source": "recorded"}
+{"at": "2026-05-02T13:00:00", "kind": "transit", "from_poi": "sg04", "to_poi": "sg09", "mode": "transit", "duration_min": 65.0, "disruption": true, "source": "recorded"}
+{"at": "2026-05-02T13:00:00", "kind": "transit", "from_poi": "sg09", "to_poi": "sg04", "mode": "transit", "duration_min": 70.0, "disruption": true, "source": "recorded"}
+{"at": "2026-05-02T15:30:00", "kind": "transit", "from_poi": "sg04", "to_poi": "sg09", "mode": "transit", "duration_min": 30.0, "disruption": false, "source": "recorded"}

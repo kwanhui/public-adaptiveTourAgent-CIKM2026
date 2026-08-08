@@ -1,0 +1,224 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
+  <title>AdaptTour: Real-Time Adaptive Tour Recommendation with Agentic AI</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" />
+  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
+  <link rel="stylesheet" href="/static/styles.css?v=20260528b" />
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Ctext y='.9em' font-size='90'%3E%F0%9F%97%BA%EF%B8%8F%3C/text%3E%3C/svg%3E" />
+</head>
+<body>
+  <header class="hero">
+    <div class="hero-inner">
+      <div class="brand">
+        <div class="brand-mark" aria-hidden="true">A</div>
+        <div class="brand-text">
+          <h1>AdaptTour</h1>
+          <p class="tagline">Real-Time Adaptive Tour Recommendation with Agentic AI: real-time replanning that watches the weather, the crowds, and your fatigue.</p>
+        </div>
+      </div>
+      <button id="theme-toggle" class="ghost" aria-label="Toggle dark mode">
+        <span class="theme-icon-light">☀</span>
+        <span class="theme-icon-dark">☾</span>
+      </button>
+    </div>
+  </header>
+
+  <main class="layout">
+    <aside class="sidebar" id="sidebar">
+      <section class="card panel-form">
+        <h2>Plan a tour</h2>
+        <div class="form-grid">
+          <label class="field full">
+            <span>
+              City
+              <button class="info-icon" type="button" data-tip="Five cities supported: each ships its own POI catalogue (15 stops), accommodation set, and fare table (rideshare/transit/cycle prices calibrated per city, 2024-2026 baselines). Switching the city reloads the map centre and re-prices every leg.">ⓘ</button>
+            </span>
+            <select id="city">
+              <option value="Singapore" selected>Singapore</option>
+              <option value="Melbourne">Melbourne</option>
+              <option value="London">London</option>
+              <option value="New York">New York</option>
+              <option value="Paris">Paris</option>
+            </select>
+          </label>
+          <label class="field full">
+            <span>Profile</span>
+            <select id="profile-preset">
+              <option value="solo">Solo (party of 1)</option>
+              <option value="couple">Couple (party of 2)</option>
+              <option value="friends" selected>Friends (party of 2+)</option>
+              <option value="family">Family (party of 3+)</option>
+            </select>
+          </label>
+          <label class="field full">
+            <span>
+              Start
+              <button class="info-icon" type="button" data-tip="Date and time the tour begins. Pick a later date to plan a multi-day trip; the agent will schedule POIs across each day and dedupe so no POI repeats.">ⓘ</button>
+            </span>
+            <input id="start-datetime" type="datetime-local" />
+          </label>
+          <label class="field full">
+            <span>
+              End
+              <button class="info-icon" type="button" data-tip="Date and time the tour ends. If end date differs from start date, the planner runs the multi-day flow; otherwise it runs single-day.">ⓘ</button>
+            </span>
+            <input id="end-datetime" type="datetime-local" />
+          </label>
+          <label class="field">
+            <span>
+              Party size
+              <button class="info-icon" type="button" data-tip="Number of travellers. Locked to 1 for Solo and 2 for Couple. Editable with a minimum of 2 for Friends and 3 for Family. Used to multiply per-stop entry fees and per-leg transit fares, and to scale the fatigue model.">ⓘ</button>
+            </span>
+            <input id="family-size" type="number" value="2" min="2" />
+          </label>
+          <label class="field">
+            <span>
+              Money cap
+              <button class="info-icon" type="button" data-tip="Optional ceiling on total per-person tour spend (entry fees + transit fares × party size). Leave blank to disable. Hard-enforced inside the optimiser, not just at the end.">ⓘ</button>
+            </span>
+            <input id="money-cap" type="number" placeholder="USD (optional)" min="0" step="10" />
+          </label>
+          <label class="checkbox-field full">
+            <input id="prefer-low-carbon" type="checkbox" />
+            <span>
+              Prefer low-carbon routes
+              <button class="info-icon" type="button" data-tip="Bias the optimiser toward low-CO₂e legs. POIs reachable by walking get a small score boost over those that require transit/drive.">ⓘ</button>
+            </span>
+          </label>
+          <label class="checkbox-field full">
+            <input id="require-wheelchair" type="checkbox" />
+            <span>
+              Require accessible route
+              <button class="info-icon" type="button" data-tip="Two-layer filter. (1) POI level: drop any POI whose catalogue flags wheelchair_accessible=false (e.g. Tower of London inner walls, Sacré-Cœur steps, Coney Island boardwalk). (2) Routing level: never picks cycle as the inbound mode, and prefers step-free transit over walking for legs longer than 1 km. Rideshare requests an accessible vehicle implicitly.">ⓘ</button>
+            </span>
+          </label>
+          <label class="checkbox-field full">
+            <input id="require-low-stimulation" type="checkbox" />
+            <span>
+              Quiet / sensory-friendly mode
+              <button class="info-icon" type="button" data-tip="Filter the catalogue to POIs flagged sensory_low_stimulation: quiet, low-crowd-noise spaces suited to neurodiverse travellers or anyone seeking a calmer day. Typically museums, gardens, heritage sites; excludes theme parks, busy markets, and major night-life neighbourhoods.">ⓘ</button>
+            </span>
+          </label>
+          <label class="field full">
+            <span>
+              Pace
+              <button class="info-icon" type="button" data-tip="Relaxed (k=0.50, +15 min/stop): fewer but longer stops, more downtime between visits. Standard (k=0.40, no buffer): the default. Packed (k=0.25, -5 min/stop): more stops per day, faster turnaround. The k value is the fatigue coefficient; higher k means later stops carry stronger score penalties.">ⓘ</button>
+            </span>
+            <select id="pace">
+              <option value="relaxed">Relaxed (fewer, longer stops)</option>
+              <option value="standard" selected>Standard</option>
+              <option value="packed">Packed (more stops, denser)</option>
+            </select>
+          </label>
+        </div>
+        <div class="group-panel" id="group-panel" hidden>
+          <span class="group-head">
+            Group preferences
+            <button class="info-icon" type="button" data-tip="For Friends/Family groups, give each traveller a veto (a category nobody in the party will visit) or a boost (a category to favour). A single veto blocks that category for the whole group; the replanner re-applies every veto and boost on each mid-trip revision, so they are live constraints rather than a one-time average.">ⓘ</button>
+          </span>
+          <div id="group-members"></div>
+          <button id="add-member" type="button" class="ghost-small">+ Add traveller preference</button>
+        </div>
+        <button id="plan-btn" class="primary">Generate plan</button>
+      </section>
+
+      <section class="card panel-triggers" id="panel-triggers" hidden>
+        <h2>
+          Adapt the plan
+          <button class="info-icon" type="button" data-tip="Each click pushes a typed signal into the same fusion pipeline as weather/crowd/transit. The trigger registry applies debounce + cooldown, then the replanner locks the executed prefix and re-routes the tail. The free-text box lets you describe arbitrary changes ('skip the museum, find dinner'); the LLM extracts the intent into the same signal stream. Cmd/Ctrl+Enter sends.">ⓘ</button>
+        </h2>
+        <div class="trigger-row">
+          <button class="trigger" data-note="It started raining heavily" title="Rain trigger">🌧 Rain</button>
+          <button class="trigger" data-note="The kids are tired" title="User fatigue">😴 Fatigue</button>
+          <button class="trigger" data-note="MRT delay reported" title="Transit disruption">🚇 Delay</button>
+        </div>
+        <p class="signal-note">Weather is live (Open-Meteo); crowd, transit, and fatigue are simulated for the demo.</p>
+        <div class="veto-row" id="veto-row">
+          <select id="veto-category" aria-label="Category to veto mid-trip"></select>
+          <button id="veto-btn" type="button" class="trigger" title="A group member vetoes this category now; the tail re-routes">🚫 Veto category</button>
+        </div>
+        <div class="control-row">
+          <button id="undo-btn" type="button" class="trigger" title="Revert to the itinerary before the last change">↶ Undo last change</button>
+        </div>
+        <form id="chat-form" class="chat-form">
+          <textarea
+            id="chat-input"
+            placeholder="Tell the agent what's changed, e.g. &quot;skip the next museum, find dinner instead&quot; (Cmd/Ctrl+Enter to send)"
+            rows="2"
+          ></textarea>
+          <button id="chat-send" class="primary chat-send">Send</button>
+        </form>
+      </section>
+
+      <section class="card panel-log" id="panel-log" hidden>
+        <h2>Activity</h2>
+        <ol id="chat-log" aria-live="polite"></ol>
+      </section>
+
+      <section class="card panel-summary" id="panel-summary" hidden>
+        <h2>This session</h2>
+        <div class="metrics">
+          <div class="metric">
+            <span class="metric-label">Stops</span>
+            <span class="metric-value" id="m-stops">0</span>
+          </div>
+          <div class="metric">
+            <span class="metric-label">
+              LLM cost
+              <button class="info-icon" type="button" data-tip="Cumulative cost of OpenAI calls in this session (POI scoring + replan rationales). Calculated server-side from token usage at gpt-4o-mini rates ($0.15/M input, $0.60/M output).">ⓘ</button>
+            </span>
+            <span class="metric-value" id="m-llm-cost">$0.0000</span>
+          </div>
+          <div class="metric">
+            <span class="metric-label">
+              Tour spend
+              <button class="info-icon" type="button" data-tip="Total trip spend = POI entry fees × party + per-leg transport fares. The agent picks among walk (free), cycle ($1 unlock + $0.10/km, Anywheel/HelloRide), MRT/bus ($0.10/km per passenger), or Grab ($3.50 + $0.95/km per booking, shared by party) based on distance, remaining budget, and your low-carbon preference.">ⓘ</button>
+            </span>
+            <span class="metric-value" id="m-trip-cost">$0.00</span>
+          </div>
+          <div class="metric">
+            <span class="metric-label">
+              CO₂e
+              <button class="info-icon" type="button" data-tip="Operational CO₂ equivalent for transit legs, in kilograms per passenger. Computed as circuity-adjusted distance × per-mode factor (walk: 0, cycle: 0, transit: 0.041 kg/km, rideshare/drive: 0.171 kg/km, sourced from Banerjee et al. 2025 and IPCC AR6 transport).">ⓘ</button>
+            </span>
+            <span class="metric-value" id="m-co2">0.00 kg</span>
+          </div>
+          <div class="metric metric-wide">
+            <span class="metric-label">Replans</span>
+            <span class="metric-value" id="m-replans">0</span>
+          </div>
+        </div>
+      </section>
+    </aside>
+
+    <section class="map-pane">
+      <div id="map"></div>
+      <div class="map-overlay" id="map-overlay">
+        <div class="overlay-card">
+          <h2>Pick a profile and click <em>Generate plan</em></h2>
+          <p>The agent calls an LLM to score Singapore POIs against your preferences, then routes a single- or multi-day itinerary. Use the buttons or the chat box on the left to adapt the plan in real time.</p>
+        </div>
+      </div>
+    </section>
+
+    <aside class="detail-rail" id="detail-rail" hidden>
+      <header class="detail-header">
+        <h2>Itinerary</h2>
+        <button id="close-detail" class="ghost-small" aria-label="Close">✕</button>
+      </header>
+      <nav id="day-tabs" class="day-tabs" hidden></nav>
+      <ol id="visit-list"></ol>
+    </aside>
+  </main>
+
+  <div id="info-popover" class="info-popover" hidden role="tooltip" aria-live="polite"></div>
+
+  <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+  <script src="/static/app.js?v=20260528b"></script>
+</body>
+</html>
